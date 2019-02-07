@@ -9,7 +9,11 @@ action "filter-to-pr-open-synced" {
 }
 
 action "linkcheck" {
-  uses = "marc/hugo-linkcheck@master"
+  uses = "docker://marc/hugo-linkcheck:master"
   needs = "filter-to-pr-open-synced"
   secrets = ["GITHUB_TOKEN"]
+  env = {
+    HUGO_CONFIG = "./hugo-config/enterpriseready.toml"
+    HUGO_ROOT = "./site"
+  }
 }
